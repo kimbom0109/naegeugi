@@ -195,6 +195,12 @@
   .supply b { display: block; font-family: "Jua"; font-weight: 400; font-size: 1.15rem; }
   .supply span { display: block; font-size: 1.05rem; color: var(--ink-soft); line-height: 1.4; }
   .supplies-or { display: block; margin: 6px 0 6px 52px; font-family: "Jua"; color: var(--orange); }
+  /* 카드가 넓으면 두 가지를 좌우로 펼치고 가운데 or */
+  .supplies { container-type: inline-size; }
+  @container (min-width: 560px) {
+    .supply-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; }
+    .supplies-or { margin: 0; font-size: 1.4rem; }
+  }
 
   /* ---------- 활동 ---------- */
   .acts { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
@@ -461,8 +467,8 @@
         </h1>
         <p class="subtitle"><b>내</b>가 <b>그</b>린 <b>기</b>린 <b>그</b>림</p>
         <div class="hero-actions">
-          <a class="btn yellow" href="#about">동아리 소개 보기 →</a>
-          <a class="btn pink" href="#activities">활동 구경하기 →</a>
+          <a class="btn yellow" href="#about">동아리 소개 보기</a>
+          <a class="btn pink" href="#activities">활동 구경하기</a>
         </div>
       </div>
 
@@ -516,6 +522,7 @@
         <div class="supplies note-card sketch">
           <h3>준비물</h3>
           <p class="supplies-sub">둘 중 편한 걸로 챙겨 와요!</p>
+          <div class="supply-row">
           <div class="supply">
             <svg class="wob" viewBox="0 0 48 48" aria-hidden="true"><g class="ink" stroke-width="3">
               <rect x="7" y="5" width="34" height="38" rx="5" fill="#8ecae6"/><rect x="12" y="10" width="24" height="26" rx="2" fill="#fff"/>
@@ -534,6 +541,7 @@
               <b>종이에 그린다면</b>
               <span>무지 노트·스케치북·크로키북 중 하나<br>+ 필기구, 채색도구 (색연필·마커 등)</span>
             </div>
+          </div>
           </div>
         </div>
       </div>
