@@ -187,6 +187,17 @@
   .schedule .time { font-family: "Jua"; font-size: 2.2rem; margin-top: 4px; }
   .schedule small { display: block; color: var(--ink-soft); font-size: 1.05rem; }
 
+  /* 준비물 */
+  .side-notes { display: grid; gap: 30px; align-content: start; }
+  .supplies { padding: 20px 22px; transform: rotate(-1deg); }
+  .supplies h3 { font-size: 1.5rem; }
+  .supplies-sub { color: var(--ink-soft); font-size: 1.15rem; margin-bottom: 10px; }
+  .supply { display: flex; gap: 12px; align-items: flex-start; }
+  .supply svg { width: 44px; height: 44px; flex: none; }
+  .supply b { display: block; font-family: "Jua"; font-weight: 400; font-size: 1.2rem; }
+  .supply span { display: block; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.4; }
+  .supplies-or { display: block; margin: 6px 0 6px 56px; font-family: "Jua"; color: var(--orange); }
+
   /* ---------- 활동 ---------- */
   .acts { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
   .act {
@@ -491,6 +502,7 @@
           </ul>
         </div>
 
+        <div class="side-notes">
         <div class="schedule">
           <h3>언제 모여요?</h3>
           <div class="days" aria-label="월요일 또는 수요일">
@@ -500,6 +512,31 @@
           </div>
           <p class="time">매주 18:00 ~</p>
           <small>요일은 모집 후에 정해질 예정이에요</small>
+        </div>
+
+        <div class="supplies sketch">
+          <h3>준비물</h3>
+          <p class="supplies-sub">둘 중 편한 걸로 챙겨 와요!</p>
+          <div class="supply">
+            <svg class="wob" viewBox="0 0 48 48" aria-hidden="true"><g class="ink" stroke-width="3">
+              <rect x="7" y="5" width="34" height="38" rx="5" fill="#8ecae6"/><rect x="12" y="10" width="24" height="26" rx="2" fill="#fff"/>
+              <path d="M44 12 L30 34" stroke="#f29e4c" stroke-width="4"/></g></svg>
+            <div>
+              <b>그림 그릴 수 있는 태블릿</b>
+              <span>아이패드, 갤럭시 탭 등 (+ 펜)</span>
+            </div>
+          </div>
+          <span class="supplies-or" aria-hidden="true">or</span>
+          <div class="supply">
+            <svg class="wob" viewBox="0 0 48 48" aria-hidden="true"><g class="ink" stroke-width="3">
+              <rect x="9" y="6" width="30" height="38" rx="3" fill="#fff4dc"/><path d="M9 6 v38" stroke-width="5"/>
+              <path d="M40 30 l4 -16 l3 1 l-4 16 z" fill="#ef6f6c" stroke-width="2"/></g></svg>
+            <div>
+              <b>종이에 그린다면</b>
+              <span>무지 노트·스케치북·크로키북 중 하나<br>+ 필기구, 채색도구 (색연필·마커 등)</span>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
