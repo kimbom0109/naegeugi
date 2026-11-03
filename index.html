@@ -134,9 +134,10 @@
     border-radius: 52% 48% 55% 45% / 47% 55% 45% 53%;
     transform: rotate(-12deg); box-shadow: 3px 3px 0 var(--ink);
   }
-  .sun { position: absolute; top: -10px; left: -14%; width: 96px; }
-  .cloud { position: absolute; width: 130px; opacity: .95; }
-  .cloud.c1 { top: 18px; left: 44%; }
+  /* 구름+해 한 세트: 기린 왼쪽 위에 같이 붙어 다님 */
+  .sky { position: absolute; top: -34px; left: -30%; width: 200px; height: 130px; pointer-events: none; }
+  .sky .cloud { position: absolute; left: 0; top: 0; width: 130px; }
+  .sky .sun { position: absolute; left: 92px; top: 26px; width: 96px; }
   .grass { display: block; width: 100%; height: 50px; margin-top: -6px; }
 
   /* ---------- 섹션 공통 ---------- */
@@ -375,8 +376,8 @@
   @media (max-width: 560px) {
     body { font-size: 1.15rem; }
     .nav ul { display: none; }
-    .sun { width: 80px; }
-    .cloud { display: none; }
+    .hero-art { margin-top: 44px; }
+    .sky { left: -8%; top: -40px; transform: scale(.75); transform-origin: left top; }
     section { padding: 40px 0; }
     #pad { height: 260px; }
   }
@@ -455,10 +456,6 @@
 
   <!-- ===== 히어로 ===== -->
   <section class="hero" aria-labelledby="hero-title">
-    <svg class="cloud c1 wob" viewBox="0 0 140 70" aria-hidden="true">
-      <path class="ink" fill="#fff" stroke-width="3.5" d="M24 56 C6 56 6 34 24 34 C24 16 50 12 58 26 C66 8 98 10 100 30 C122 26 132 52 112 56 Z"/>
-    </svg>
-
     <div class="wrap">
       <div>
         <span class="eyebrow">야매 그림 동아리</span>
@@ -473,7 +470,11 @@
       </div>
 
       <div class="hero-art">
-  <svg class="sun wob" viewBox="0 0 120 120" aria-hidden="true">
+      <div class="sky" aria-hidden="true">
+        <svg class="cloud wob" viewBox="0 0 140 70" aria-hidden="true">
+      <path class="ink" fill="#fff" stroke-width="3.5" d="M24 56 C6 56 6 34 24 34 C24 16 50 12 58 26 C66 8 98 10 100 30 C122 26 132 52 112 56 Z"/>
+    </svg>
+        <svg class="sun wob" viewBox="0 0 120 120" aria-hidden="true">
       <g class="ink" stroke-width="4">
         <circle cx="60" cy="60" r="26" fill="#f29e4c"/>
         <path d="M60 8v16 M60 96v16 M8 60h16 M96 60h16 M23 23l11 11 M86 86l11 11 M97 23L86 34 M34 86L23 97"/>
@@ -481,6 +482,7 @@
       <circle cx="51" cy="56" r="3" fill="#3b2f26"/><circle cx="69" cy="56" r="3" fill="#3b2f26"/>
       <path d="M50 67 Q60 76 70 67" class="ink" stroke-width="3"/>
     </svg>
+      </div>
         <svg class="giraffe wob" viewBox="0 0 320 420" role="img" aria-label="크레파스로 그린 노란 기린 그림">
           <use href="#giraffe"/>
         </svg>
