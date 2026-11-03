@@ -123,14 +123,14 @@
 
   .hero-art { position: relative; justify-self: center; width: min(360px, 100%); }
   .hero-art .giraffe { width: 100%; height: auto; display: block; }
-  /* '마참내!' 짤처럼 발치에 깔린 납작한 빨간 타원 말풍선 */
+  /* 자리는 기린 왼쪽 그대로, 모양만 '마참내!' 짤처럼 납작한 빨간 타원 */
   .sticker {
-    position: absolute; bottom: 1%; left: 50%;
-    padding: 12px 34px; white-space: nowrap;
+    position: absolute; bottom: 14%; left: -14%;
+    width: 150px; height: 92px; display: grid; place-items: center; text-align: center;
     font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif; font-weight: 700;
-    font-size: 1.55rem; line-height: 1; letter-spacing: -.01em;
+    font-size: 1.2rem; line-height: 1.25; letter-spacing: -.01em;
     background: #d6323a; color: #fff; border-radius: 50%;
-    transform: translateX(-50%) rotate(-5deg);
+    transform: rotate(-10deg);
   }
   /* 구름+해 한 세트: 기린 왼쪽 위에 같이 붙어 다님 */
   .sky { position: absolute; top: -34px; left: -38%; width: 250px; height: 110px; pointer-events: none; }
@@ -359,7 +359,7 @@
     .about-card { grid-column: auto; }
     .hero { padding-top: 28px; }
     .hero-art { width: min(300px, 80%); margin-top: 44px; }
-    .sticker { font-size: 1.25rem; padding: 10px 26px; }
+    .sticker { left: -4%; width: 124px; height: 78px; font-size: 1rem; }
     .frames { grid-template-columns: repeat(2, 1fr); }
     .goal:nth-child(even) { margin-left: 0; }
     .portfolio { grid-template-columns: repeat(2, 1fr); }
@@ -486,7 +486,7 @@
         <svg class="giraffe wob" viewBox="0 0 320 420" role="img" aria-label="크레파스로 그린 노란 기린 그림">
           <use href="#giraffe"/>
         </svg>
-        <div class="sticker" aria-hidden="true">부원 모집 곧 시작!</div>
+        <div class="sticker" aria-hidden="true">부원 모집<br>곧 시작!</div>
       </div>
     </div>
     <svg class="grass wob" viewBox="0 0 1200 50" preserveAspectRatio="none" aria-hidden="true">
