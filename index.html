@@ -350,11 +350,10 @@
     /* 좁은 화면: 그림은 한 줄에 한 장씩 크게 */
     .portfolio.filled { flex-direction: column; align-items: center; gap: 26px; }
     .portfolio.filled figure { flex: none; width: 100%; }
-    /* 좁은 화면: 줄 하나에 액자 두 개만 */
-    .frames { gap: 14px; padding: 0 6px; }
-    .frame:nth-child(n+3) { display: none; }
-    .frame:nth-child(1) { transform: rotate(-2.5deg); margin-top: 14px; }
-    .frame:nth-child(2) { transform: rotate(2deg); margin-top: 26px; }
+    /* 좁은 화면: 가운데 액자 하나만 */
+    .frames { grid-template-columns: min(240px, 70%); justify-content: center; }
+    .frame:nth-child(n+2) { display: none; }
+    .frame:nth-child(1) { transform: rotate(-2deg); margin-top: 22px; }
   }
   @media (max-width: 560px) {
     body { font-size: 1.15rem; }
