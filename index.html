@@ -106,24 +106,8 @@
     transform: rotate(-2deg);
   }
   .title { font-size: clamp(4rem, 13vw, 8.5rem); letter-spacing: .02em; display: flex; gap: .02em; }
-  .title span { display: inline-block; text-shadow: 3px 3px 0 var(--ink); -webkit-text-stroke: 2px var(--ink); }
-  /* 피노키오 나무 인형처럼 이음새에 박힌 볼트 */
-  .title span { position: relative; }
-  .bolt {
-    position: absolute; left: calc(var(--x) * 1em); top: calc(var(--y) * 1em);
-    width: .15em; height: .15em; transform: translate(-50%, -50%);
-    border-radius: 50%; border: 2px solid var(--ink);
-    background: radial-gradient(circle at 35% 30%, #fff 0 12%, #d9d4cc 35%, #8f877d 100%);
-    box-shadow: 1px 1px 0 var(--ink);
-  }
-  .bolt::after { /* 일자 홈 */
-    content: ""; position: absolute; left: 18%; right: 18%; top: 50%; height: 2px; margin-top: -1px;
-    background: var(--ink); transform: rotate(-35deg); border-radius: 2px;
-  }
-  .title span:nth-child(1) { color: var(--yellow); transform: rotate(-6deg) translateY(4px); }
-  .title span:nth-child(2) { color: var(--orange); transform: rotate(4deg); }
-  .title span:nth-child(3) { color: var(--green); transform: rotate(-3deg) translateY(8px); }
-  .title span:nth-child(4) { color: var(--sky); transform: rotate(7deg) translateY(-2px); }
+  /* 판자를 볼트로 조립해 만든 제목 */
+  .title-svg { display: block; width: min(100%, 520px); height: auto; overflow: visible; }
   .subtitle { font-size: 1.7rem; font-weight: 700; margin-top: 6px; }
   .subtitle b { background: linear-gradient(transparent 55%, color-mix(in srgb, var(--yellow) 75%, transparent) 55% 90%, transparent 90%); padding: 0 2px; }
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
@@ -175,7 +159,7 @@
   /* 카드가 넓으면 멘트는 왼쪽, 연필 목록은 오른쪽 */
   @container (min-width: 560px) {
     .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
-    .about-card .about-inner h3 { margin: 0; font-size: 1.85rem; }
+    .about-card .about-inner h3 { margin: 0; font-size: 1.55rem; }
   }
   .note-card { position: relative; padding: 30px 24px 24px; display: flex; flex-direction: column; }
   .note-card::before { /* 마스킹테이프 */
@@ -186,6 +170,7 @@
   }
   .note-card h3 { font-size: 1.5rem; line-height: 1.35; margin-bottom: 14px; }
   .about-card { --tape: var(--pink); transform: rotate(-.8deg); }
+  .about-card h3 { font-size: 1.35rem; }
   .schedule { --tape: var(--sky); transform: rotate(.6deg); text-align: center; justify-content: center; align-items: center; }
   .supplies { --tape: var(--yellow); transform: rotate(-.4deg); }
 
@@ -404,6 +389,13 @@
       <feTurbulence id="wobble-noise" type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="noise"/>
       <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
     </filter>
+    <radialGradient id="bolt-metal" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#d9d4cc"/><stop offset="1" stop-color="#8f877d"/>
+    </radialGradient>
+    <g id="bolt"><!-- 판자 이음새를 잇는 일자 나사 -->
+      <circle r="7" fill="url(#bolt-metal)" stroke="#3b2f26" stroke-width="2.5"/>
+      <path d="M-4 3 L4 -3" stroke="#3b2f26" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
     <symbol id="giraffe" viewBox="0 0 320 420">
       <g stroke="#3b2f26" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
         <!-- 꼬리 -->
@@ -469,8 +461,8 @@
     <div class="wrap">
       <div>
         <span class="eyebrow">야매 그림 동아리</span>
-        <h1 id="hero-title" class="title" aria-label="내그기그">
-          <span aria-hidden="true">내<i class="bolt" style="--x:.12;--y:.84"></i><i class="bolt" style="--x:.72;--y:.51"></i></span><span aria-hidden="true">그<i class="bolt" style="--x:.68;--y:.29"></i></span><span aria-hidden="true">기<i class="bolt" style="--x:.4;--y:.32"></i><i class="bolt" style="--x:.68;--y:.57"></i></span><span aria-hidden="true">그<i class="bolt" style="--x:.68;--y:.29"></i></span>
+        <h1 id="hero-title" class="title">
+          <svg class="title-svg wob" viewBox="-6 -6 590 172" role="img" aria-label="내그기그"><g transform="translate(8 6) rotate(-4 60 75)"><g><rect x="4" y="8" width="22" height="128" rx="11.0" fill="#3b2f26"/><rect x="0" y="4" width="22" height="128" rx="11.0" fill="#f7c948" stroke="#3b2f26" stroke-width="4"/></g><g transform="rotate(-6 11 121)"><rect x="4" y="114" width="68" height="22" rx="11.0" fill="#3b2f26"/><rect x="0" y="110" width="68" height="22" rx="11.0" fill="#f7c948" stroke="#3b2f26" stroke-width="4"/></g><g><rect x="84" y="14" width="22" height="126" rx="11.0" fill="#3b2f26"/><rect x="80" y="10" width="22" height="126" rx="11.0" fill="#f7c948" stroke="#3b2f26" stroke-width="4"/></g><g transform="rotate(4 91 69)"><rect x="84" y="62" width="66" height="22" rx="11.0" fill="#3b2f26"/><rect x="80" y="58" width="66" height="22" rx="11.0" fill="#f7c948" stroke="#3b2f26" stroke-width="4"/></g><g><rect x="130" y="4" width="22" height="142" rx="11.0" fill="#3b2f26"/><rect x="126" y="0" width="22" height="142" rx="11.0" fill="#f7c948" stroke="#3b2f26" stroke-width="4"/></g><use href="#bolt" x="11" y="121"/><use href="#bolt" x="91" y="69"/><use href="#bolt" x="137" y="69"/></g><g transform="translate(178 10) rotate(3 55 70)"><g><rect x="4" y="16" width="104" height="22" rx="11.0" fill="#3b2f26"/><rect x="0" y="12" width="104" height="22" rx="11.0" fill="#f29e4c" stroke="#3b2f26" stroke-width="4"/></g><g transform="rotate(5 93 23)"><rect x="86" y="16" width="22" height="72" rx="11.0" fill="#3b2f26"/><rect x="82" y="12" width="22" height="72" rx="11.0" fill="#f29e4c" stroke="#3b2f26" stroke-width="4"/></g><g><rect x="-2" y="108" width="118" height="22" rx="11.0" fill="#3b2f26"/><rect x="-6" y="104" width="118" height="22" rx="11.0" fill="#f29e4c" stroke="#3b2f26" stroke-width="4"/></g><use href="#bolt" x="93" y="23"/></g><g transform="translate(318 14) rotate(-2 55 70)"><g><rect x="4" y="16" width="74" height="22" rx="11.0" fill="#3b2f26"/><rect x="0" y="12" width="74" height="22" rx="11.0" fill="#8cc63f" stroke="#3b2f26" stroke-width="4"/></g><g transform="rotate(-4 63 23)"><rect x="56" y="16" width="22" height="118" rx="11.0" fill="#3b2f26"/><rect x="52" y="12" width="22" height="118" rx="11.0" fill="#8cc63f" stroke="#3b2f26" stroke-width="4"/></g><g><rect x="100" y="4" width="22" height="140" rx="11.0" fill="#3b2f26"/><rect x="96" y="0" width="22" height="140" rx="11.0" fill="#8cc63f" stroke="#3b2f26" stroke-width="4"/></g><use href="#bolt" x="63" y="23"/></g><g transform="translate(456 4) rotate(6 55 70)"><g><rect x="4" y="16" width="104" height="22" rx="11.0" fill="#3b2f26"/><rect x="0" y="12" width="104" height="22" rx="11.0" fill="#8ecae6" stroke="#3b2f26" stroke-width="4"/></g><g transform="rotate(-5 93 23)"><rect x="86" y="16" width="22" height="72" rx="11.0" fill="#3b2f26"/><rect x="82" y="12" width="22" height="72" rx="11.0" fill="#8ecae6" stroke="#3b2f26" stroke-width="4"/></g><g><rect x="-2" y="108" width="118" height="22" rx="11.0" fill="#3b2f26"/><rect x="-6" y="104" width="118" height="22" rx="11.0" fill="#8ecae6" stroke="#3b2f26" stroke-width="4"/></g><use href="#bolt" x="93" y="23"/></g></svg>
         </h1>
         <p class="subtitle"><b>내</b>가 <b>그</b>린 <b>기</b>린 <b>그</b>림</p>
         <div class="hero-actions">
@@ -521,7 +513,7 @@
         </div>
 
         <div class="schedule note-card sketch">
-          <h3>언제 모여요?</h3>
+          <h3>활동 시간</h3>
           <div class="days" aria-label="월요일 또는 수요일">
             <span class="day mon" aria-hidden="true">월</span>
             <span class="or" aria-hidden="true">or</span>
