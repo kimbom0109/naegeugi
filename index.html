@@ -57,6 +57,7 @@
     font-size: 1.45rem;
     font-weight: 400;
     font-synthesis: none; /* 얇은 글씨 유지: 가짜 굵게 처리 안 함 */
+    word-break: keep-all; /* 한글 단어 중간에서 줄바꿈 안 함 */
     line-height: 1.55;
     overflow-x: clip;
     background-color: var(--paper);
@@ -112,7 +113,6 @@
   .title span:nth-child(4) { color: var(--sky); transform: rotate(7deg) translateY(-2px); }
   .subtitle { font-size: 1.7rem; font-weight: 700; margin-top: 6px; }
   .subtitle b { background: linear-gradient(transparent 55%, color-mix(in srgb, var(--yellow) 75%, transparent) 55% 90%, transparent 90%); padding: 0 2px; }
-  .tagline { font-size: 1.45rem; margin-top: 14px; color: var(--ink-soft); }
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
   .btn {
     display: inline-block; font-family: "Jua"; font-size: 1.25rem; text-decoration: none;
@@ -155,48 +155,45 @@
   .sec-head .note { color: var(--ink-soft); font-size: 1.15rem; }
 
   /* ---------- 소개 ---------- */
-  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; align-items: start; }
-  .about-card { padding: 28px; transform: rotate(-.6deg); font-size: 1.4rem; }
-  .about-card .big { font-family: "Jua"; font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin-bottom: 12px; }
-  .about-card mark { background: color-mix(in srgb, var(--green) 55%, transparent); color: inherit; padding: 0 4px; border-radius: 6px 2px 8px 3px; }
-  .about-points { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 8px; }
-  .about-points li::before { content: "✎ "; color: var(--orange); font-weight: 700; }
-
-  .schedule {
-    position: relative; padding: 26px 24px 22px; text-align: center; transform: rotate(1.5deg);
-    background: #fff8c9;
-    border-radius: 6px 10px 4px 12px;
-    box-shadow: 0 10px 18px -12px rgba(60, 40, 20, .45);
-    border: 0;
-  }
-  .schedule::before { /* 마스킹테이프 */
-    content: ""; position: absolute; top: -14px; left: 50%; width: 110px; height: 28px;
-    transform: translateX(-50%) rotate(-4deg);
-    background: color-mix(in srgb, var(--sky) 70%, transparent);
+  /* 소개·모임 시간·준비물: 같은 모양의 카드 세 장을 테이프로 붙인 느낌 */
+  .about-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 26px; align-items: stretch; }
+  .note-card { position: relative; padding: 30px 24px 24px; display: flex; flex-direction: column; }
+  .note-card::before { /* 마스킹테이프 */
+    content: ""; position: absolute; top: -13px; left: 50%; width: 96px; height: 26px;
+    transform: translateX(-50%) rotate(-3deg);
+    background: color-mix(in srgb, var(--tape) 70%, transparent);
     border-left: 2px dashed rgba(255,255,255,.6); border-right: 2px dashed rgba(255,255,255,.6);
   }
-  .schedule h3 { font-size: 1.5rem; margin-bottom: 8px; }
-  .schedule .days { display: flex; justify-content: center; gap: 10px; align-items: center; margin: 8px 0; }
+  .note-card h3 { font-size: 1.5rem; line-height: 1.35; margin-bottom: 14px; }
+  .about-card { --tape: var(--pink); transform: rotate(-.8deg); }
+  .schedule { --tape: var(--sky); transform: rotate(.6deg); }
+  .supplies { --tape: var(--yellow); transform: rotate(-.4deg); }
+
+  .about-points { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 1.3rem; }
+  .about-points li::before { content: "✎ "; color: var(--orange); font-weight: 700; }
+
+  .schedule .days { display: flex; gap: 10px; align-items: center; margin: 2px 0 10px; }
   .day {
-    font-family: "Jua"; font-size: 1.9rem; width: 70px; height: 70px; display: grid; place-items: center;
+    font-family: "Jua"; font-size: 1.7rem; width: 62px; height: 62px; display: grid; place-items: center;
     border: 3px solid var(--ink); border-radius: 50% 46% 52% 48% / 48% 52% 46% 50%;
   }
   .day.mon { background: var(--pink); transform: rotate(-6deg); }
   .day.wed { background: var(--green); transform: rotate(5deg); }
   .schedule .or { font-size: 1.3rem; font-weight: 700; }
-  .schedule .time { font-family: "Jua"; font-size: 2.2rem; margin-top: 4px; }
-  .schedule small { display: block; color: var(--ink-soft); font-size: 1.05rem; }
+  .schedule .time { font-family: "Jua"; font-size: 2rem; }
+  .schedule small { display: block; margin-top: auto; padding-top: 10px; color: var(--ink-soft); font-size: 1.05rem; }
 
-  /* 준비물 */
-  .side-notes { display: grid; gap: 30px; align-content: start; }
-  .supplies { padding: 20px 22px; transform: rotate(-1deg); }
-  .supplies h3 { font-size: 1.5rem; }
-  .supplies-sub { color: var(--ink-soft); font-size: 1.15rem; margin-bottom: 10px; }
+  .supplies-sub { color: var(--ink-soft); font-size: 1.1rem; margin: -8px 0 12px; }
   .supply { display: flex; gap: 12px; align-items: flex-start; }
-  .supply svg { width: 44px; height: 44px; flex: none; }
-  .supply b { display: block; font-family: "Jua"; font-weight: 400; font-size: 1.2rem; }
-  .supply span { display: block; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.4; }
-  .supplies-or { display: block; margin: 6px 0 6px 56px; font-family: "Jua"; color: var(--orange); }
+  .supply svg { width: 40px; height: 40px; flex: none; }
+  .supply b { display: block; font-family: "Jua"; font-weight: 400; font-size: 1.15rem; }
+  .supply span { display: block; font-size: 1.05rem; color: var(--ink-soft); line-height: 1.4; }
+  .supplies-or { display: block; margin: 6px 0 6px 52px; font-family: "Jua"; color: var(--orange); }
+
+  @media (max-width: 1000px) {
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    .about-card { grid-column: 1 / -1; }
+  }
 
   /* ---------- 활동 ---------- */
   .acts { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
@@ -352,6 +349,7 @@
   /* ---------- 반응형 ---------- */
   @media (max-width: 820px) {
     .hero .wrap, .about-grid { grid-template-columns: 1fr; }
+    .about-card { grid-column: auto; }
     .hero { padding-top: 28px; }
     .hero-art { width: min(300px, 80%); }
     .sticker { left: -2%; width: 100px; height: 100px; font-size: .95rem; }
@@ -461,7 +459,6 @@
           <span aria-hidden="true">내</span><span aria-hidden="true">그</span><span aria-hidden="true">기</span><span aria-hidden="true">그</span>
         </h1>
         <p class="subtitle"><b>내</b>가 <b>그</b>린 <b>기</b>린 <b>그</b>림</p>
-        <p class="tagline">잘 그려도, 못 그려도 OK<br>야매로 그리면서 같이 크는 동아리</p>
         <div class="hero-actions">
           <a class="btn yellow" href="#about">무슨 동아리야?</a>
           <a class="btn pink" href="#activities">뭐 하고 놀아?</a>
@@ -493,8 +490,8 @@
     <div class="wrap reveal">
       <div class="sec-head"><span class="num">1</span><h2 id="about-title">어떤 동아리냐면요</h2></div>
       <div class="about-grid">
-        <div class="about-card sketch">
-          <p class="big">야매로 그림 그리면서<br>서로 성장하는 동아리!</p>
+        <div class="about-card note-card sketch">
+          <h3>잘 그려도, 못 그려도 OK<br>야매로 그리면서 같이 크는 동아리</h3>
           <ul class="about-points">
             <li>그림 처음 그려보는 사람도 환영</li>
             <li>강의·챌린지·게임으로 부담 없이</li>
@@ -502,8 +499,7 @@
           </ul>
         </div>
 
-        <div class="side-notes">
-        <div class="schedule">
+        <div class="schedule note-card sketch">
           <h3>언제 모여요?</h3>
           <div class="days" aria-label="월요일 또는 수요일">
             <span class="day mon" aria-hidden="true">월</span>
@@ -514,7 +510,7 @@
           <small>요일은 모집 후에 정해질 예정이에요</small>
         </div>
 
-        <div class="supplies sketch">
+        <div class="supplies note-card sketch">
           <h3>준비물</h3>
           <p class="supplies-sub">둘 중 편한 걸로 챙겨 와요!</p>
           <div class="supply">
@@ -536,7 +532,6 @@
               <span>무지 노트·스케치북·크로키북 중 하나<br>+ 필기구, 채색도구 (색연필·마커 등)</span>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
