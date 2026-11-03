@@ -135,9 +135,9 @@
     transform: rotate(-12deg); box-shadow: 3px 3px 0 var(--ink);
   }
   /* 구름+해 한 세트: 기린 왼쪽 위에 같이 붙어 다님 */
-  .sky { position: absolute; top: -34px; left: -30%; width: 200px; height: 130px; pointer-events: none; }
+  .sky { position: absolute; top: -34px; left: -38%; width: 250px; height: 110px; pointer-events: none; }
   .sky .cloud { position: absolute; left: 0; top: 0; width: 130px; }
-  .sky .sun { position: absolute; left: 92px; top: 26px; width: 96px; }
+  .sky .sun { position: absolute; left: 150px; top: 4px; width: 96px; } /* 구름과 안 닿게 띄움 */
   .grass { display: block; width: 100%; height: 50px; margin-top: -6px; }
 
   /* ---------- 섹션 공통 ---------- */
@@ -359,7 +359,7 @@
     .hero .wrap, .about-grid { grid-template-columns: 1fr; }
     .about-card { grid-column: auto; }
     .hero { padding-top: 28px; }
-    .hero-art { width: min(300px, 80%); }
+    .hero-art { width: min(300px, 80%); margin-top: 44px; }
     .sticker { left: -2%; width: 100px; height: 100px; font-size: .95rem; }
     .frames { grid-template-columns: repeat(2, 1fr); }
     .goal:nth-child(even) { margin-left: 0; }
@@ -376,7 +376,6 @@
   @media (max-width: 560px) {
     body { font-size: 1.15rem; }
     .nav ul { display: none; }
-    .hero-art { margin-top: 44px; }
     .sky { left: -8%; top: -40px; transform: scale(.75); transform-origin: left top; }
     section { padding: 40px 0; }
     #pad { height: 260px; }
