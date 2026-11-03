@@ -277,7 +277,7 @@
     height: 100%; display: grid; place-items: center; font-family: "Jua"; font-size: 2.6rem;
     color: color-mix(in srgb, var(--ink) 22%, transparent); background: var(--paper-2);
   }
-  .gallery-msg { text-align: center; margin-top: 34px; font-size: 1.45rem; }
+  .gallery-msg { text-align: center; margin-top: 48px; font-size: 1.45rem; }
   .gallery-msg b { font-family: "Jua"; font-weight: 400; }
 
   /* ---------- 낙서판 ---------- */
@@ -354,6 +354,7 @@
     .frames { grid-template-columns: min(240px, 70%); justify-content: center; }
     .frame:nth-child(n+2) { display: none; }
     .frame:nth-child(1) { transform: rotate(-2deg); margin-top: 22px; }
+    .gallery-msg { margin-top: 56px; }
   }
   @media (max-width: 560px) {
     body { font-size: 1.15rem; }
