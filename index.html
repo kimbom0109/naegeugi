@@ -309,6 +309,8 @@
     width: 100%; height: 320px; display: block; touch-action: none; cursor: crosshair;
     background: #fffef9; border: 2px dashed color-mix(in srgb, var(--ink) 35%, transparent); border-radius: 10px;
   }
+  .doodle-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+  .doodle-actions .btn { font-size: 1.1rem; padding: 6px 18px; cursor: pointer; color: var(--ink); }
   .doodle-hint { color: var(--ink-soft); font-size: 1.05rem; margin-top: 8px; }
 
   /* ---------- 푸터 ---------- */
@@ -784,7 +786,10 @@
           <button class="clear-btn sketch" id="clear">싹 지우기</button>
         </div>
         <canvas id="pad" aria-label="자유롭게 그릴 수 있는 도화지"></canvas>
-        <p class="doodle-hint">여기 그린 건 저장되지 않아요. 마음껏 기린을 그려보세요!</p>
+        <div class="doodle-actions">
+          <button class="btn yellow" id="save-doodle" type="button">갤러리에 저장</button>
+        </div>
+        <p class="doodle-hint" id="doodle-hint">마음껏 기린을 그려보세요! 다 그리면 내 폰·컴퓨터에 저장할 수 있어요.</p>
       </div>
     </div>
   </section>
@@ -848,7 +853,7 @@
     const pad = document.getElementById('pad');
     const ctx = pad.getContext('2d');
     let color = '#3b2f26';
-    let drawing = false, last = null;
+    let drawing = false, last = null, drawn = false;
 
     function resize() {
       const dpr = window.devicePixelRatio || 1;
@@ -883,7 +888,7 @@
       ctx.globalAlpha = 1;
     }
 
-    pad.addEventListener('pointerdown', e => { drawing = true; last = pos(e); pad.setPointerCapture(e.pointerId); stroke(last, last); });
+    pad.addEventListener('pointerdown', e => { drawing = true; drawn = true; last = pos(e); pad.setPointerCapture(e.pointerId); stroke(last, last); });
     pad.addEventListener('pointermove', e => { if (!drawing) return; const p = pos(e); stroke(last, p); last = p; });
     ['pointerup', 'pointercancel'].forEach(t => pad.addEventListener(t, () => { drawing = false; }));
 
@@ -896,6 +901,35 @@
     });
     document.getElementById('clear').addEventListener('click', () => {
       ctx.clearRect(0, 0, pad.width, pad.height);
+      drawn = false;
+    });
+
+    // 도화지 색 배경을 깔아 PNG로 만들기
+    function toPngBlob() {
+      const out = document.createElement('canvas');
+      out.width = pad.width; out.height = pad.height;
+      const o = out.getContext('2d');
+      o.fillStyle = '#fffef9';
+      o.fillRect(0, 0, out.width, out.height);
+      o.drawImage(pad, 0, 0);
+      return new Promise(res => out.toBlob(res, 'image/png'));
+    }
+    const hint = document.getElementById('doodle-hint');
+
+    // 폰에서는 공유 시트(→ '이미지 저장')로, 컴퓨터에서는 파일 다운로드로
+    document.getElementById('save-doodle').addEventListener('click', async () => {
+      if (!drawn) { hint.textContent = '먼저 도화지에 뭐라도 그려주세요!'; return; }
+      const blob = await toPngBlob();
+      const file = new File([blob], '내그기그-낙서.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] }) && matchMedia('(pointer: coarse)').matches) {
+        try { await navigator.share({ files: [file], title: '내그기그 낙서' }); return; } catch (e) { if (e.name === 'AbortError') return; }
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = file.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      hint.textContent = '저장했어요! 다운로드 폴더를 확인해 보세요.';
     });
   })();
 </script>
